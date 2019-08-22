@@ -1,5 +1,5 @@
 #trapping dna with ping pong automation
-#will catch your beads
+#make sure you catch beads first
 
 from bluelake import Trap, stage, fluidics, pause, reset_force, timeline
 
@@ -46,48 +46,10 @@ def movetoch4():
     reset_force()
     print("setup should be ready to go")
 
-def beadtest():
-    bead1 = timeline['Tracking Match Score']['Bead 1']
-    bead2 = timeline['Tracking Match Score']['Bead 2']
-    bead_scores = [bead1, bead2]
-    if all(bead.latest_value > 0.85 for bead in bead_scores):
-        print("you already have beads")
-        return 1
-    else:
-        print("gotta get beads")
-        return 0
+#THIS IS THE START OF THE MAIN -------------------------------
 
-def catch_beads(min_score = 30) : #from Zsombor
-    stage.move_to("beads")
-    target_traps = traps[:2]
-
-    target_traps[1].clear()
-    target_traps[0].clear()
-    bead1 = timeline['Tracking Match Score']['Bead 1']
-    bead2 = timeline['Tracking Match Score']['Bead 2']
-    bead_scores = [bead1, bead2]
-
-    while any(bead.latest_value < min_score for bead in bead_scores):
-        if any(0 < bead.latest_value < min_score for bead in bead_scores):
-            for trap in target_traps:
-                trap.clear()  # bad beads
-                print('bad beads')
-            pause(1)
-    print("beads should be caught")
-
-#THIS IS THE START OF THE MAIN -----------------------------------------
-
-#check for beads first
-bt=beadtest()
-if bt==0:
-    setpressure(0.3)
-    fluidics.open(1,2,3,6)
-    stage.move_to("beads")
-    catch_beads(85)
-else:
-    #turn on fluidics
-    fluidics.open(1, 2, 3, 6)
-
+#turn on fluidics
+fluidics.open(1, 2, 3, 6)
 # set up the pressure
 setpressure(0.22)
 
