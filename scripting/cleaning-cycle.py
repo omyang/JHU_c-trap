@@ -9,17 +9,17 @@ def setpressure(pres):
     if curpres<pres:
         while fluidics.pressure < pres:
             fluidics.increase_pressure()
-            pause(0.4) #important!
+            pause(0.1) #important!
     else:
         while fluidics.pressure > pres:
             fluidics.decrease_pressure()
-            pause(0.4) #important!
+            pause(0.1) #important!
 
 def timeprogression(time,numsteps):
-    stepsize=round(time/steps,2)
-    for i in range(1,numsteps+1)
+    stepsize=round(time/numsteps,2)
+    for i in range(1,numsteps+1):
         pause(stepsize)
-        print(" "+str(i*stepsize) + "s have elapsed")
+        print(" "+str(round(i*stepsize*100/time)) + "% of time has elapsed")
 
 
 #MAIN ------------------------------------------
@@ -30,7 +30,7 @@ timeprogression(60*3,3)
 
 print("high done, starting low pressure")
 setpressure(0.4)
-timeprogression(60*27,14)
+timeprogression(60*10,14)
 
 fluidics.stop_flow()
 print("   should be done and vented")

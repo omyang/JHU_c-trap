@@ -1,10 +1,10 @@
 #trapping dna with ping pong automation
 #will catch your beads
 
-from bluelake import Trap, stage, fluidics, pause, reset_force, timeline
+from bluelake import Trap, stage, fluidics, pause, reset_force, timeline, traps
 
 trap = Trap("1", "XY")
-pt=0.3
+pt=0.1
 echannel=1 #change this to 1 if you want to end in an experiment channel
 dnadwell=1 #how long to dwell in dna channel (sec)
 
@@ -91,6 +91,7 @@ else:
     fluidics.open(1, 2, 3, 6)
 
 # set up the pressure
+stage.move_to("buffer")
 setpressure(0.22)
 
 #set traps at initial position and reset force
