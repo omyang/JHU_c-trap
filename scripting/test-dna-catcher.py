@@ -6,7 +6,7 @@ from bluelake import Trap, stage, fluidics, pause, reset_force, timeline, traps
 trap = Trap("1", "XY")
 pt=0.1
 echannel=1 #change this to 1 if you want to end in an experiment channel
-dnadwell=1 #how long to dwell in dna channel (sec)
+dnadwell=3 #how long to dwell in dna channel (sec)
 
 #functions that we need to catch DNA
 def pingpongforce():
@@ -23,7 +23,7 @@ def pressurecycle():
     while fluidics.pressure < .6:
         fluidics.increase_pressure()
         pause(pt) #important!
-    while fluidics.pressure > 0.24:
+    while fluidics.pressure > 0.22:
         fluidics.decrease_pressure()
         pause(pt) #important!
     print("pressure cycled")
@@ -119,9 +119,9 @@ while caught!=1:
           caught=1
     else:
           pforce_old=pforce
+          if (attempts%15)==0:
+              pressurecycle()
           attempts+=1
-    if (attempts%15)==0:
-        pressurecycle()
 
 print("hopefully we finished")
 
